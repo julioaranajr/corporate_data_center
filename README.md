@@ -1,33 +1,39 @@
-# Migration Server
+# AWS Migration Lab
 
-## On-Premises Virtual Server
-Simulate On Premise DataCenter with a dedicated VPC in AWS
+## Directory Structure
+The following directory structure should be maintained for this repository:
+```
+├── .gitignore
+├── README.md
+├── TEMPLATE                          Template for terraform root modules
+├── rehost
+    ├── terraform                 Terraform root modules
+    |   ├── source-vpc            Deploy VPC for simulating on-prem data center
+    |   ├── target-vpc            Deploy VPC for hosting  workload migrated to AWS
+    |   ├── patch-management      Configure patch management
+    |   └── automated-backups     Configure automatic backups
+    |
+    └── python                    Python scripts
+        └── src
+            ├── libs              Reusable artifacts
+            └── utils             Utility components
+``` 
 
-| VPC | Description | Type |
-| :--- | :---: | :---: |
-| corporate_data_center_vpc_name | Virtual-On-Prem-VPC | [dedicated] |
-| SUBNETS | Description | Type |
-| corporate_data_center_public_subnet_name | OnPrem-Public-SB | Public |
-| corporate_data_center_private_subnet_name | OnPrem-Private-SB | Private |
-| CIDR |  |  |
-| corporate_data_center_vpc_cidr | [10.0.0.0/16] | VPC |
-| corporate_data_center_public_cidr | [10.0.1.0/24] | Public |
-| corporate_data_center_private_cidr | [10.0.10.0/24] | Private |
-| RT |  |  |
-| corporate_data_center_public_rt_name | OnPrem-Public-RT | Public |
-| corporate_data_center_private_rt_name | OnPrem-Private-RT | Private |
-| IGW |  |  |
-| corporate_data_center_igw_name | "OnPrem-IGW" | IGW |
-| corporate_data_center_nat_gateway_name | "OnPrem-NAT" | NAT |
-| SECURITY GROUPS |  |  |
-| corporate_data_center_webserver_sgname | OnPrem-Webserver-SG | Public |
-| corporate_data_center_database_sgname | OnPrem-Database-SG | Private |
-| EC2 INSTANCES ON PREMISE|  |  |
-| - WEBSERVER | in the Public one for webserver | t2.medium |  
-| - DATABASE | in the Private one for the database |m5.large |
+## Terraform 
 
-- [x] Postgres is configured on DB server
-- [x] PGAdmin is working on webserver and connected with the DB
-# AWS MGN
-- [x] Replication agent installed on both EC2s
-- [x] Completed Initialise AWS MGN service in [eu-east-1]
+### Scripts
+The structure and instructions provided in [TEMPLATE](./TEMPLATE/README.md) should be followed as best as possible when creating root terraform module directories.
+
+### Backend Convention
+The root terraform modules should use an S3 backend, with a DynamoDB lock file.
+```
+backend "s3" {
+  region         = "eu-central-1"
+  bucket         = "tf-state-aws-migration-test"
+  key            = "<root_module>.tfstate"
+  dynamodb_table = "tf-state-lock-capci-group4-<root_module>"
+  encrypt        = "true"
+}
+```
+Replace <root_module> with the corresponding root module name.  
+E.g., `key = "aws-migration-lab-rehost-source-vpc.tfstate"` for the source VPC root module.
