@@ -1,8 +1,10 @@
 # AWS Migration Lab
 
 ## Directory Structure
+
 The following directory structure should be maintained for this repository:
-```
+
+```bash
 ├── .gitignore
 ├── README.md
 ├── TEMPLATE                          Template for terraform root modules
@@ -17,23 +19,27 @@ The following directory structure should be maintained for this repository:
         └── src
             ├── libs              Reusable artifacts
             └── utils             Utility components
-``` 
+```
 
-## Terraform 
+## Terraform
 
 ### Scripts
+
 The structure and instructions provided in [TEMPLATE](./TEMPLATE/README.md) should be followed as best as possible when creating root terraform module directories.
 
 ### Backend Convention
+
 The root terraform modules should use an S3 backend, with a DynamoDB lock file.
-```
+
+```md
 backend "s3" {
   region         = "eu-central-1"
   bucket         = "tf-state-aws-migration-test"
   key            = "<root_module>.tfstate"
-  dynamodb_table = "tf-state-lock-capci-group4-<root_module>"
+  dynamodb_table = "tf-state-lock-<team-name>>-<root_module>"
   encrypt        = "true"
 }
 ```
-Replace <root_module> with the corresponding root module name.  
+
+Replace <root_module> with the corresponding root module name.
 E.g., `key = "aws-migration-lab-rehost-source-vpc.tfstate"` for the source VPC root module.
