@@ -1,4 +1,5 @@
 # Runtime variables
+
 region                  = "eu-central-1"
 vpc_name                = "Target-Vpc"
 public_subnet_name      = "Public-SB"

@@ -1,4 +1,5 @@
 # Terraform input variables
+
 variable "region" {
     description = "The provider region to create resources"
     type     = string
@@ -24,10 +25,12 @@ variable "postgre_sql_subnet_name" {
 }
 
 variable "staging_subnet_name" {
-    description = "The name of the Stagign Area Private Subnet"
+    description = "The name of the Staging Area Private Subnet"
     type        = string
 }
+
 # cidr variables
+
 variable "vpc_cidr" {
     description = "The CIDR block of the VPC"
     type        = string

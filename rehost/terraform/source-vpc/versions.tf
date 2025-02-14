@@ -1,7 +1,5 @@
 # Terraform configuration block (including required_version, backend, & required_providers)
 # Terraform providers (e.g., aws, tls, etc.)
-# Terraform configuration block (including required_version, backend, & required_providers)
-# Terraform providers (e.g., aws, tls, etc.)
 
 terraform {
   required_providers {
@@ -13,9 +11,9 @@ terraform {
 
   backend "s3" {
     region         = "eu-central-1"
-    bucket         = "tf-state-capci-group4"
+    bucket         = "tf-state-<team-name>"
     key            = "aws-migration-lab-rehost-target-vpc.tfstate"
-    dynamodb_table = "tf-state-lock-capci-group4-aws-migration-lab-rehost-target-vpc"
+    dynamodb_table = "tf-state-lock-<"team-name">-aws-migration-lab-rehost-target-vpc"
     encrypt        = "true"
   }
 

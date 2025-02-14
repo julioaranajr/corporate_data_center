@@ -1,6 +1,6 @@
 # Terraform Template
 
-This directory contains the template to be used for all terraform workloads. 
+This directory contains the template to be used for all terraform workloads.
 The structure should remain the same as outlined in the template.
 
 * `files` - Directory to be used when any files/policies/licences etc. will be required by the configuration.
@@ -14,7 +14,7 @@ The structure should remain the same as outlined in the template.
 * `terraform.tfvars` - contains input variables to be directly set by the user.
 * `variables.tf` - contains declarations of variables used in `main.tf`.
 
-There may be a case for a developer bending the rules in certain scenarios. For example, if there is a large configuration of resource specific modules, it may be cleaner and more readable for the project if these are broken out into their own `_service/resource_.tf` file. eg: 
+There may be a case for a developer bending the rules in certain scenarios. For example, if there is a large configuration of resource specific modules, it may be cleaner and more readable for the project if these are broken out into their own `_service/resource_.tf` file. eg:
 
 * `sg.tf` - to contain a large number of security groups
 * `iam.tf` - to contain a large amount of role
@@ -23,10 +23,10 @@ This decision will be left to developer discretion and reviewed upon pull reques
 
 ## Template files, policies etc
 
-If a configuration requires any files, policies or anything that can be abstracted out of a module then please use the `templatefile("${path.module}/files/<path_to_file>, vars)` function. 
+If a configuration requires any files, policies or anything that can be abstracted out of a module then please use the `templatefile("${path.module}/files/<path_to_file>, vars)` function.
 If there are multiple types of files required (e.g EC2 userdata scripts and iam policies) these should be given their own directory within the `files directory`:
 
-```
+```md
 
 - files
   - scripts
@@ -48,7 +48,6 @@ If there are multiple types of files required (e.g EC2 userdata scripts and iam 
 1. Do not repeat resource type in resource name (not partially, nor completely):
 
 > ✅ &nbsp;`resource "aws_route_table" "public" {}`
-
 > ❌ &nbsp;`resource "aws_route_table" "public_route_table" {}`
 
 ## Usage
@@ -57,10 +56,10 @@ Copy the `TEMPLATE` directory and rename it to the workload that you are deployi
 
 Ensure to update `versions.tf` with your required configuration for the backend.
 
-```
+```bash
 
-$ terraform init
-$ terraform plan
-$ terraform apply
+terraform init
+terraform plan
+terraform apply
 
 ```
