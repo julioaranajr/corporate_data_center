@@ -1,4 +1,5 @@
 # AWS Migration Lab
+![corporate_data_center](https://socialify.git.ci/julioaranajr/corporate_data_center/image?description=1&language=1&name=1&owner=1&pattern=Solid&theme=Dark)
 
 ## Directory Structure
 
